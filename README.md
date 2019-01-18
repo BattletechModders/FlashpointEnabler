@@ -12,8 +12,8 @@ Activates features of FPs
 - Adds new Tags to create Flashpoints.
 
 ## New Tags
-{RANDOM} | Use for employer or target to generate a random faction as those.
-{PLANETOWNER} | Use for employer or target to use current planet owner as the faction selected.
+- {RANDOM} | Use for employer or target to generate a random faction as those.
+- {PLANETOWNER} | Use for employer or target to use current planet owner as the faction selected.
 
 ## Download
 
