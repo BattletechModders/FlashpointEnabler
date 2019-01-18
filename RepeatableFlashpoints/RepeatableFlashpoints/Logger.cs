@@ -3,7 +3,7 @@ using System.IO;
 
 namespace RepeatableFlashpoints {
     public class Logger {
-        static string filePath = $"{RepeatableFlashpoints.ModDirectory}/Log.txt";
+        static string filePath = $"{FlashpointEnabler.ModDirectory}/Log.txt";
         public static void LogError(Exception ex) {
             using (StreamWriter writer = new StreamWriter(filePath, true)) {
                 writer.WriteLine("Message :" + ex.Message + "<br/>" + Environment.NewLine + "StackTrace :" + ex.StackTrace +

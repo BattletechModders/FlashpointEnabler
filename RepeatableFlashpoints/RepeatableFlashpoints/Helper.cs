@@ -9,7 +9,7 @@ namespace RepeatableFlashpoints {
             get {
                 try {
                     if (_settings == null) {
-                        using (StreamReader r = new StreamReader($"{RepeatableFlashpoints.ModDirectory}/settings.json")) {
+                        using (StreamReader r = new StreamReader($"{FlashpointEnabler.ModDirectory}/settings.json")) {
                             string json = r.ReadToEnd();
                             _settings = JsonConvert.DeserializeObject<Settings>(json);
                         }

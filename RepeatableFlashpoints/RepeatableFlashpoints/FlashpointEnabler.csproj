@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RepeatableFlashpoints.cs" />
+    <Compile Include="FlashpointEnabler.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="HolderClasses.cs" />
     <Compile Include="Logger.cs" />
