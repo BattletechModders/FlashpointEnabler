@@ -1,5 +1,5 @@
-# RepeatableFlashpoints
-Activates the repeatable flag of FPs
+# FlashpointEnabler
+Activates features of FPs
 
 ## Requirements
 * install [BattleTechModLoader](https://github.com/BattletechModders/BattleTechModLoader/releases) using the [instructions here](https://github.com/BattletechModders/BattleTechModLoader)
