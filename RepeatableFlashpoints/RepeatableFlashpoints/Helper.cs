@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BattleTech;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 
@@ -20,6 +21,14 @@ namespace RepeatableFlashpoints {
                     Logger.LogError(ex);
                     return null;
                 }
+            }
+        }
+
+        public static bool IsExcluded(Faction faction) {
+            if (Settings.excludedFactions.Contains(faction.ToString())) {
+                return true;
+            } else {
+                return false;
             }
         }
     }
