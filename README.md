@@ -14,7 +14,7 @@ Activates features of FPs
 ## New Tags
 - {RANDOM} | Use for employer or target to generate a random faction as those.
 - {PLANETOWNER} | Use for employer or target to use current planet owner as the faction selected.
-
+- empty "value" field select random map.
 ## Download
 
 Downloads can be found on [github](https://github.com/Morphyum/RepeatableFlashpoints/releases).
