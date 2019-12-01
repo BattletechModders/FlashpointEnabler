@@ -66,7 +66,7 @@ namespace RepeatableFlashpoints {
                         action.additionalValues[3] = randomFaction.ToString();
                     }
                     else if (action.additionalValues[3].Equals("{PLANETOWNER}")) {
-                        action.additionalValues[3] = simulation.ActiveFlashpoint.CurSystem.Owner.ToString();
+                        action.additionalValues[3] = simulation.ActiveFlashpoint.CurSystem.OwnerValue.Name;
                     }
                     if (action.additionalValues[4].Equals("{RANDOM}")) {
                         Array values = Enum.GetValues(typeof(Faction));
@@ -79,12 +79,12 @@ namespace RepeatableFlashpoints {
                         action.additionalValues[4] = randomFaction.ToString();
                     }
                     else if (action.additionalValues[4].Equals("{PLANETOWNER}")) {
-                        action.additionalValues[4] = simulation.ActiveFlashpoint.CurSystem.Owner.ToString();
+                        action.additionalValues[4] = simulation.ActiveFlashpoint.CurSystem.OwnerValue.Name;
                     }
                     if (string.IsNullOrEmpty(action.value)) {
                         ContractOverride contractOverride = simulation.DataManager.ContractOverrides.Get(action.additionalValues[2]).Copy();
-                        ContractType contractType = contractOverride.contractType;
-                       List<MapAndEncounters> releasedMapsAndEncountersByContractTypeAndOwnership = MetadataDatabase.Instance.GetReleasedMapsAndEncountersByContractTypeAndOwnership(new ContractType[] { contractType });
+                        int contractType = contractOverride.ContractTypeValue.ID;
+                       List<MapAndEncounters> releasedMapsAndEncountersByContractTypeAndOwnership = MetadataDatabase.Instance.GetReleasedMapsAndEncountersByContractTypeAndOwnership(contractType, false);
                         releasedMapsAndEncountersByContractTypeAndOwnership.Shuffle();
                         MapAndEncounters mapAndEncounters = releasedMapsAndEncountersByContractTypeAndOwnership[0];
                         action.value = mapAndEncounters.Map.MapName;
