@@ -3,20 +3,40 @@ using System.IO;
 
 namespace RepeatableFlashpoints {
     public class Logger {
-        static string filePath = $"{FlashpointEnabler.ModDirectory}/Log.txt";
-        public static void LogError(Exception ex) {
-            using (StreamWriter writer = new StreamWriter(filePath, true)) {
-                writer.WriteLine("Message :" + ex.Message + "<br/>" + Environment.NewLine + "StackTrace :" + ex.StackTrace +
-                   "" + Environment.NewLine + "Date :" + DateTime.Now.ToString());
-                writer.WriteLine(Environment.NewLine + "-----------------------------------------------------------------------------" + Environment.NewLine);
+        private static StreamWriter LogStream;
+        private readonly bool isDebug = false;
+
+        public Logger(string modDir, string logName, bool isDebug) {
+            string logFile = Path.Combine(modDir, $"{logName}.log");
+            if (File.Exists(logFile)) {
+                File.Delete(logFile);
+            }
+
+            LogStream = File.AppendText(logFile);
+            LogStream.AutoFlush = true;
+
+            this.isDebug = isDebug;
+        }
+
+        public void LogIfDebug(string message) {
+            if (this.isDebug) {
+                LogLine(message);
             }
         }
 
-        public static void LogLine(String line) {
-            using (StreamWriter writer = new StreamWriter(filePath, true)) {
-                writer.WriteLine(line + Environment.NewLine + "Date :" + DateTime.Now.ToString());
-                writer.WriteLine(Environment.NewLine + "-----------------------------------------------------------------------------" + Environment.NewLine);
-            }
+        public void LogLine(string message) {
+            string now = DateTime.UtcNow.ToString("s", System.Globalization.CultureInfo.InvariantCulture);
+            LogStream.WriteLine($"{now} - {message}");
+        }
+
+        public void LogError(Exception error) {
+            string now = DateTime.UtcNow.ToString("s", System.Globalization.CultureInfo.InvariantCulture);
+            LogStream.WriteLine($"{now} - {error}");
+        }
+
+        public void Close() {
+            LogStream.Flush();
+            LogStream.Close();
         }
     }
 }

@@ -18,14 +18,14 @@ namespace RepeatableFlashpoints {
                     return _settings;
                 }
                 catch (Exception ex) {
-                    Logger.LogError(ex);
+                    FlashpointEnabler.Logger.LogError(ex);
                     return null;
                 }
             }
         }
 
-        public static bool IsExcluded(Faction faction) {
-            if (Settings.excludedFactions.Contains(faction.ToString())) {
+        public static bool IsExcluded(string faction) {
+            if (Settings.excludedFactions.Contains(faction)) {
                 return true;
             } else {
                 return false;

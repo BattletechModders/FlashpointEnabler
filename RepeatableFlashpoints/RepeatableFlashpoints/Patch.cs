@@ -17,7 +17,7 @@ namespace RepeatableFlashpoints {
                 }
             }
             catch (Exception e) {
-                Logger.LogError(e);
+                FlashpointEnabler.Logger.LogError(e);
             }
         }
     }
@@ -43,7 +43,7 @@ namespace RepeatableFlashpoints {
                 }
             }
             catch (Exception e) {
-                Logger.LogError(e);
+                FlashpointEnabler.Logger.LogError(e);
             }
         }
     }
@@ -53,30 +53,31 @@ namespace RepeatableFlashpoints {
         private static void Prefix(SimGameState __instance, ref SimGameResultAction action) {
             try {
                 if (action.Type == SimGameResultAction.ActionType.Flashpoint_AddContract || action.Type == SimGameResultAction.ActionType.Flashpoint_StartContract) {
-                    Logger.LogLine("FP name = " + action.additionalValues[2]);
+                    FlashpointEnabler.Logger.LogLine("FP name = " + action.additionalValues[2]);
                     SimGameState simulation = UnityGameInstance.BattleTechGame.Simulation;
                     if (action.additionalValues[3].Equals("{RANDOM}")) {
-                        Array values = Enum.GetValues(typeof(Faction));
+                        List<FactionValue> values = FactionEnumeration.FactionList;
                         Random random = new Random();
-                        Faction randomFaction;
+                        FactionValue randomFaction;
                         do {
-                            randomFaction = (Faction)values.GetValue(random.Next(values.Length));
+                            randomFaction = (FactionValue)values[(random.Next(values.Count))];
                         }
-                        while (Helper.IsExcluded(randomFaction));
-                        action.additionalValues[3] = randomFaction.ToString();
+                        while (Helper.IsExcluded(randomFaction.Name));
+                        action.additionalValues[3] = randomFaction.Name;
                     }
                     else if (action.additionalValues[3].Equals("{PLANETOWNER}")) {
                         action.additionalValues[3] = simulation.ActiveFlashpoint.CurSystem.OwnerValue.Name;
                     }
                     if (action.additionalValues[4].Equals("{RANDOM}")) {
-                        Array values = Enum.GetValues(typeof(Faction));
+                        List<FactionValue> values = FactionEnumeration.FactionList;
                         Random random = new Random();
-                        Faction randomFaction;
-                        do {
-                            randomFaction = (Faction)values.GetValue(random.Next(values.Length));
+                        FactionValue randomFaction;
+                        do
+                        {
+                            randomFaction = (FactionValue)values[(random.Next(values.Count))];
                         }
-                        while (Helper.IsExcluded(randomFaction));
-                        action.additionalValues[4] = randomFaction.ToString();
+                        while (Helper.IsExcluded(randomFaction.Name));
+                        action.additionalValues[4] = randomFaction.Name;
                     }
                     else if (action.additionalValues[4].Equals("{PLANETOWNER}")) {
                         action.additionalValues[4] = simulation.ActiveFlashpoint.CurSystem.OwnerValue.Name;
@@ -92,7 +93,7 @@ namespace RepeatableFlashpoints {
                 }
             }
             catch (Exception e) {
-                Logger.LogError(e);
+                FlashpointEnabler.Logger.LogError(e);
             }
         }
     }
