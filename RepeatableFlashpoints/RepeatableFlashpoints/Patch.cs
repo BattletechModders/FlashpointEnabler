@@ -24,11 +24,10 @@ namespace RepeatableFlashpoints {
 
     [HarmonyPatch(typeof(SimGameState), "GenerateFlashpoint")]
     public static class SimGameState_GenerateFlashpoint_Patch {
-        private static void Prefix(SimGameState __instance, ref bool useInitial, ref List<FlashpointDef> ___flashpointPool) {
+        private static void Prefix(SimGameState __instance) {
             try {
-                useInitial = false;
                 if (Helper.Settings.randomPlanet || Helper.Settings.debugAllRepeat) {
-                    foreach (FlashpointDef fp in ___flashpointPool) {
+                    foreach (FlashpointDef fp in __instance.FlashpointPool) {
                         if (Helper.Settings.randomPlanet) {
                             foreach (string tag in fp.LocationRequirements.RequirementTags) {
                                 if (tag.Contains("planet_name")) {
