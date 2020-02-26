@@ -63,9 +63,11 @@ namespace RepeatableFlashpoints {
                         }
                         while (Helper.IsExcluded(randomFaction.Name));
                         action.additionalValues[3] = randomFaction.Name;
+                        FlashpointEnabler.Logger.LogLine("Selected Faction = " + action.additionalValues[3]);
                     }
                     else if (action.additionalValues[3].Equals("{PLANETOWNER}")) {
                         action.additionalValues[3] = simulation.ActiveFlashpoint.CurSystem.OwnerValue.Name;
+                        FlashpointEnabler.Logger.LogLine("Set System owner Faction = " + action.additionalValues[3]);
                     }
                     if (action.additionalValues[4].Equals("{RANDOM}")) {
                         List<FactionValue> values = FactionEnumeration.FactionList;
@@ -77,9 +79,11 @@ namespace RepeatableFlashpoints {
                         }
                         while (Helper.IsExcluded(randomFaction.Name));
                         action.additionalValues[4] = randomFaction.Name;
+                        FlashpointEnabler.Logger.LogLine("Selected Faction = " + action.additionalValues[4]);
                     }
                     else if (action.additionalValues[4].Equals("{PLANETOWNER}")) {
                         action.additionalValues[4] = simulation.ActiveFlashpoint.CurSystem.OwnerValue.Name;
+                        FlashpointEnabler.Logger.LogLine("Set System owner Faction = " + action.additionalValues[4]);
                     }
                     if (string.IsNullOrEmpty(action.value)) {
                         ContractOverride contractOverride = simulation.DataManager.ContractOverrides.Get(action.additionalValues[2]).Copy();
