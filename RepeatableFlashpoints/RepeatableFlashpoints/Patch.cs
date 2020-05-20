@@ -90,6 +90,25 @@ namespace RepeatableFlashpoints {
                     {
                         action.additionalValues[4] = generateActiveFactionString(simulation);
                     }
+
+                    //3-way
+                    if (action.additionalValues.Length >= 12 && !string.IsNullOrEmpty(action.additionalValues[11]))
+                    {
+                        if (action.additionalValues[11].Equals("{RANDOM}"))
+                        {
+                            action.additionalValues[11] = generateRandomFactionString();
+                            FlashpointEnabler.Logger.LogLine("Selected Faction = " + action.additionalValues[11]);
+                        }
+                        else if (action.additionalValues[11].Equals("{PLANETOWNER}"))
+                        {
+                            action.additionalValues[11] = simulation.ActiveFlashpoint.CurSystem.OwnerValue.Name;
+                            FlashpointEnabler.Logger.LogLine("Set System owner Faction = " + action.additionalValues[11]);
+                        }
+                        else if (action.additionalValues[11].Equals("{ACTIVE}"))
+                        {
+                            action.additionalValues[11] = generateActiveFactionString(simulation);
+                        }
+                    }
                     if (string.IsNullOrEmpty(action.value))
                     {
                         ContractOverride contractOverride = simulation.DataManager.ContractOverrides.Get(action.additionalValues[2]).Copy();

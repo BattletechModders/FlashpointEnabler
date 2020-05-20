@@ -13,6 +13,7 @@ namespace RepeatableFlashpoints {
                         using (StreamReader r = new StreamReader($"{FlashpointEnabler.ModDirectory}/settings.json")) {
                             string json = r.ReadToEnd();
                             _settings = JsonConvert.DeserializeObject<Settings>(json);
+                            _settings.fixExcludedFactions();
                         }
                     }
                     return _settings;
@@ -25,7 +26,12 @@ namespace RepeatableFlashpoints {
         }
 
         public static bool IsExcluded(string faction) {
-            if (Settings.excludedFactions.Contains(faction)) {
+            string toCheck = faction;
+            if (Settings.caseInsenstiveBlacklist)
+            {
+                toCheck = faction.ToLower();
+            }
+            if (Settings.excludedFactions.Contains(toCheck)) {
                 return true;
             } else {
                 return false;
