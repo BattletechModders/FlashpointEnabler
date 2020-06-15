@@ -5,6 +5,7 @@ using Harmony;
 using HBS.Collections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RepeatableFlashpoints {
 
@@ -58,6 +59,16 @@ namespace RepeatableFlashpoints {
                 {
                     FlashpointEnabler.Logger.LogLine("FP name = " + action.additionalValues[2]);
                     SimGameState simulation = UnityGameInstance.BattleTechGame.Simulation;
+
+                    // ContractName
+                    if (action.additionalValues[2].StartsWith("{RANDOM}"))
+                    {
+                        string possibleEntries = action.additionalValues[2].Replace("{RANDOM}", "");
+                        List<string> entires = possibleEntries.Split(',').ToList();
+                        Random random = new Random();
+                        string entry = (string)entires[(random.Next(entires.Count))];
+                        action.additionalValues[2] = entry.Trim();
+                    }
                     
                     //Employer
                     if (action.additionalValues[3].Equals("{RANDOM}"))
